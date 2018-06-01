@@ -29,6 +29,7 @@ private:
     bool        bLoop;
     bool        bPauseTimer;
     bool        bStartTimer;
+    bool        bTimerRunning;
     bool        bTimerFinished;
     float       delay;
     float       timerStart;
@@ -43,13 +44,14 @@ public:
     ~ofxTimer();
 
     // ---------------------------------------
-    void reset();
-    void setup(float millSeconds, bool bLoopTimer=false, bool bStartTimer=false);
+    void reset(bool _bStartTimer=false);
+    void setup(float millSeconds, bool _bLoopTimer=false, bool _bStartTimer=false);
     void draw();
 
     // ---------------------------------------
     bool  isTimerFinished();
-    void  setTimer(float millSeconds);
+    bool  isTimerRunning();
+    void  setTimer(float _millSeconds);
     float getTimeLeftInMillis();
     float getTimef();
     void  startTimer();

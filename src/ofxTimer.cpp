@@ -33,6 +33,7 @@ void ofxTimer::setup(float _millSeconds, bool _bLoopTimer, bool _bStartTimer) {
 
     count = 0;
     bLoop = _bLoopTimer;
+    bTimerRunning = false;
     bPauseTimer = !_bStartTimer;
     bStartTimer = true;
     bTimerFinished = false;
@@ -44,11 +45,13 @@ void ofxTimer::setup(float _millSeconds, bool _bLoopTimer, bool _bStartTimer) {
 }
 
 // ---------------------------------------
-void ofxTimer::reset() {
+void ofxTimer::reset(bool _bStartTimer) {
     count = 0;
     timerStart = 0;
-    bStartTimer = true;
+    bTimerRunning = false;
+    bStartTimer = _bStartTimer;
     bTimerFinished = false;
+
 }
 
 // ---------------------------------------
@@ -57,11 +60,17 @@ void ofxTimer::setLoop(bool _bLoop) {
 }
 
 // ---------------------------------------
+bool ofxTimer::isTimerRunning(){
+    return bTimerRunning;
+}
+
+// ---------------------------------------
 void ofxTimer::update(ofEventArgs &e) {
 
     if (!bPauseTimer) {
 
         if (bStartTimer) {
+            bTimerRunning = true;
             bStartTimer = false;
             timerStart = ofGetElapsedTimeMillis();
             cout << "start time " << timerStart << endl;
@@ -74,6 +83,7 @@ void ofxTimer::update(ofEventArgs &e) {
             count++;
 
             bPauseTimer = true;
+            bTimerRunning = false;
             static ofEventArgs timerEventArgs;
             ofNotifyEvent(timerReached, timerEventArgs, this);
 
