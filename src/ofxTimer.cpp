@@ -33,7 +33,7 @@ void ofxTimer::setup(float _millSeconds, bool _bLoopTimer, bool _bStartTimer) {
 
     count = 0;
     bLoop = _bLoopTimer;
-    bTimerRunning = false;
+    bTimerRunning = _bStartTimer;
     bPauseTimer = !_bStartTimer;
     bStartTimer = true;
     bTimerFinished = false;
